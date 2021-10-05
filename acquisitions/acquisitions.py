@@ -21,10 +21,10 @@ class AcquisitionPI(object):
     
 class AcquisitionGPUCB(object):
     
-    def __init__(self, beta=0.2):
+    def __init__(self, beta=100.):
         self.beta = beta
     def acq(self, m, s):
-        return -(m + s * np.sqrt(self.beta))
+        return -m + s * np.sqrt(self.beta)
         
 class AcquisitionLCB(object):
     def __init__(self, exploration_weight=2):
