@@ -139,6 +139,7 @@ class myExactGaussianInference(LatentFunctionInference):
         from autograd import grad, elementwise_grad
         import autograd.numpy as np
         import autograd.scipy as sc
+        from autograd.scipy import linalg
         
         per = 1/likelihood.variance.copy()**0.5
         per /= np.sum(per)
@@ -163,8 +164,8 @@ class myExactGaussianInference(LatentFunctionInference):
             return L, logdet
         
         def dpotrs(A, B, lower=1):
-            rtn = sc.linalg.solve_triangular(A, B, lower=lower)
-            rtn = sc.linalg.solve_triangular(A.T, rtn, lower=not(lower))
+            rtn = linalg.solve_triangular(A, B, lower=lower)
+            rtn = linalg.solve_triangular(A.T, rtn, lower=not(lower))
             return rtn
         
         def object_func_for_auto_grad(v):
